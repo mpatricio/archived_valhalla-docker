@@ -37,7 +37,7 @@ WORKDIR /valhalla
 RUN git clone --depth=1 --recurse-submodules --single-branch --branch=master https://github.com/zeromq/libzmq.git
 RUN cd libzmq && \
   ./autogen.sh && \
-  ./configure --without-libsodium --without-documentation && \
+  ./configure --without-libsodium && \
   make -j4 && \
   make install && \
   cd ..
@@ -57,7 +57,6 @@ ADD baldr baldr
 RUN cd baldr && \
   ./autogen.sh && \
   ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && \
-  make valhalla/baldr/date_time_zonespec.h && \
   make -j4 && \
   make install \
   && cd ..
