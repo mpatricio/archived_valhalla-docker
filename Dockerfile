@@ -1,35 +1,36 @@
 FROM phusion/baseimage:0.9.17
 
-CMD ["/sbin/my_init"]
-EXPOSE 8002
-
 RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
-  apt-get update && apt-get install -y \
-  autoconf \
-  automake \
-  libtool \
-  make \
-  gcc-4.9 \
-  g++-4.9 \
-  libboost1.54-dev \
-  libboost-program-options1.54-dev \
-  libboost-filesystem1.54-dev \
-  libboost-system1.54-dev \
-  libboost-thread1.54-dev \
-  protobuf-compiler \
-  libprotobuf-dev \
-  lua5.2 \
-  liblua5.2-dev \
-  git \
-  libsqlite3-dev \
-  libspatialite-dev \
-  libgeos-dev \
-  libgeos++-dev \
-  libcurl4-openssl-dev \
-  wget
-
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 90 && \
-  update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 90
+  apt-get update && \
+  apt-get install -y \
+    autoconf \
+    automake \
+    libtool \
+    make \
+    gcc-4.9 \
+    g++-4.9 \
+    libboost1.54-dev \
+    libboost-program-options1.54-dev \
+    libboost-filesystem1.54-dev \
+    libboost-system1.54-dev \
+    libboost-thread1.54-dev \
+    libboost-date-time1.54-dev \
+    protobuf-compiler \
+    libprotobuf-dev \
+    lua5.2 \
+    liblua5.2-dev \
+    git \
+    libsqlite3-dev \
+    libspatialite-dev \
+    libgeos-dev \
+    libgeos++-dev \
+    libcurl4-openssl-dev \
+    wget \
+    unzip && \
+  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 90 && \
+  update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 90 && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /valhalla
 WORKDIR /valhalla
@@ -82,18 +83,15 @@ RUN cd thor && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE &&
 ADD tyr tyr
 RUN cd tyr && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
 
-RUN ldconfig
+ADD tools tools
+RUN cd tools && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
 
-# Change this OSM extract to somewhere else if you like.
-RUN wget https://s3.amazonaws.com/metro-extracts.mapzen.com/london_england.osm.pbf
+RUN ldconfig
 
 RUN mkdir -p /data/valhalla
 ADD conf conf
-RUN pbfadminbuilder -c conf/valhalla.json *.pbf
-RUN pbfgraphbuilder -c conf/valhalla.json *.pbf
 
-RUN mkdir /etc/service/tyr
-ADD tyr.sh /etc/service/tyr/run
+RUN rm -rf /tmp/* /var/tmp/*
 
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
+ENV TERM xterm
+EXPOSE 8002

@@ -1,0 +1,4 @@
+**/.git
+*.osm.pbf
+data_valhalla/
+tools/test_requests
