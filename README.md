@@ -15,7 +15,7 @@ To build and run the Docker image:
 docker build -t valhalla .  # needs >2GB memory
 ```
 
-Example with Liechtenstein osm.pbf file as this comes with the tyr repo. Get other map extracts from http://download.geofabrik.de/north-america.html. Preprocess OSM data:
+Example with Liechtenstein osm.pbf file as this comes with the tyr repo. Get other map extracts from http://download.geofabrik.de/north-america.html. Place the extracts in a directory and store the location of this directory in the environment variable `DATA_OSM`. Preprocess OSM data:
 
 ```sh
 # docker run -it -v ${DATA_OSM}:/valhalla/maps -v $PWD/data_valhalla:/data/valhalla valhalla pbfadminbuilder -c conf/valhalla.json maps/liechtenstein-latest.osm.pbf
