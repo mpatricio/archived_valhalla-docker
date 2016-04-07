@@ -95,3 +95,4 @@ RUN rm -rf /tmp/* /var/tmp/*
 
 ENV TERM xterm
 EXPOSE 8002
+CMD ["tools/tyr_simple_service", "conf/valhalla.json"]
