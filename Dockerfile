@@ -35,7 +35,7 @@ RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
 RUN mkdir /valhalla
 WORKDIR /valhalla
 
-RUN git clone --depth=1 --recurse-submodules --single-branch --branch=master https://github.com/zeromq/libzmq.git && \
+RUN git clone https://github.com/zeromq/libzmq.git && \
   cd libzmq && \
   git checkout 32f2b784b9874cd3670d5a406af41c3e554dcd24 && \
   ./autogen.sh && \
@@ -44,7 +44,7 @@ RUN git clone --depth=1 --recurse-submodules --single-branch --branch=master htt
   make install && \
   cd ..
 
-RUN git clone --depth=1 --recurse-submodules --single-branch --branch=master https://github.com/kevinkreiser/prime_server.git && \
+RUN git clone --recurse-submodules https://github.com/kevinkreiser/prime_server.git && \
   cd prime_server && \
   git checkout 9564abc58f13740cfefa73d98bf86138833a7777 && \
   ./autogen.sh && \
