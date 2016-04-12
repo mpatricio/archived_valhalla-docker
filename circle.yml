@@ -10,12 +10,12 @@ checkout:
 dependencies:
   override:
     - docker info
-    - docker pull sidewalklabs/valhalla
+    - docker pull sidewalklabs/valhalla:latest
     - docker build -t sidewalklabs/valhalla:$CIRCLE_SHA1 .
 
 test:
   override:
-    - docker run -it -v $PWD/tyr/test/data:/valhalla/maps -v $PWD/data_valhalla:/data/valhalla sidewalklabs/valhalla pbfgraphbuilder -c conf/valhalla.json maps/liechtenstein-latest.osm.pbf
+    - docker run -it -v $PWD/tyr/test/data:/valhalla/maps -v $PWD/data_valhalla:/data/valhalla sidewalklabs/valhalla:$CIRCLE_SHA1 pbfgraphbuilder -c conf/valhalla.json maps/liechtenstein-latest.osm.pbf
     - docker run -d -p 8002:8002 sidewalklabs/valhalla:$CIRCLE_SHA1; sleep 2
     - curl -v http://localhost:8002
     - curl -v http://localhost:8002/route?json=%7B%22locations%22%3A%5B%7B%22lat%22%3A47.14530%2C%22lon%22%3A9.51976%7D%2C%7B%22lat%22%3A47.17051%2C%22lon%22%3A9.51703%7D%5D%2C%22costing%22%3A%22auto%22%7D
