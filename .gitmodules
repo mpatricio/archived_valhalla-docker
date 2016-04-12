@@ -1,0 +1,33 @@
+[submodule "baldr"]
+	path = baldr
+	url = https://github.com/valhalla/baldr.git
+[submodule "loki"]
+	path = loki
+	url = https://github.com/valhalla/loki.git
+[submodule "midgard"]
+	path = midgard
+	url = https://github.com/valhalla/midgard.git
+[submodule "mjolnir"]
+	path = mjolnir
+	url = https://github.com/valhalla/mjolnir.git
+[submodule "odin"]
+	path = odin
+	url = https://github.com/valhalla/odin.git
+[submodule "sif"]
+	path = sif
+	url = https://github.com/valhalla/sif.git
+[submodule "skadi"]
+	path = skadi
+	url = https://github.com/valhalla/skadi.git
+[submodule "thor"]
+	path = thor
+	url = https://github.com/valhalla/thor.git
+[submodule "tools"]
+	path = tools
+	url = https://github.com/valhalla/tools.git
+[submodule "tyr"]
+	path = tyr
+	url = https://github.com/valhalla/tyr.git
+[submodule "conf"]
+	path = conf
+	url = https://github.com/valhalla/conf.git

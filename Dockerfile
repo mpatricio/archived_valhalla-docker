@@ -35,16 +35,18 @@ RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
 RUN mkdir /valhalla
 WORKDIR /valhalla
 
-RUN git clone --depth=1 --recurse-submodules --single-branch --branch=master https://github.com/zeromq/libzmq.git
-RUN cd libzmq && \
+RUN git clone --depth=1 --recurse-submodules --single-branch --branch=master https://github.com/zeromq/libzmq.git && \
+  cd libzmq && \
+  git checkout 32f2b784b9874cd3670d5a406af41c3e554dcd24 && \
   ./autogen.sh && \
   ./configure --without-libsodium && \
   make -j4 && \
   make install && \
   cd ..
 
-RUN git clone --depth=1 --recurse-submodules --single-branch --branch=master https://github.com/kevinkreiser/prime_server.git
-RUN cd prime_server && \
+RUN git clone --depth=1 --recurse-submodules --single-branch --branch=master https://github.com/kevinkreiser/prime_server.git && \
+  cd prime_server && \
+  git checkout 9564abc58f13740cfefa73d98bf86138833a7777 && \
   ./autogen.sh && \
   ./configure && \
   make -j4 && \
@@ -55,12 +57,7 @@ ADD midgard midgard
 RUN cd midgard && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
 
 ADD baldr baldr
-RUN cd baldr && \
-  ./autogen.sh && \
-  ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && \
-  make -j4 && \
-  make install \
-  && cd ..
+RUN cd baldr && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
 
 ADD sif sif
 RUN cd sif && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
