@@ -1,17 +1,13 @@
 # Dockerfile for Valhalla
 
-This Dockerfile provides an easy way to build and deploy Mapzen's Valhalla,
-without configuring a full Chef install.
-
-This image does not have any map data included.
-
-Run `fetch-repos.sh` to pull down each Valhalla component into its own
-subdirectory. You can run this again any time to pull master and any
-submodules.
+This Dockerfile provides an easy way to build and deploy Mapzen's Valhalla
+This image does not contain any map or tile data.
 
 To build and run the Docker image:
 
 ```sh
+git clone --recurse-submodules https://github.com/sidewalklabs/valhalla-docker.git
+cd valhalla-docker
 docker build -t valhalla .  # needs >2GB memory
 ```
 
