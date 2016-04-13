@@ -42,7 +42,8 @@ RUN git clone https://github.com/zeromq/libzmq.git && \
   ./configure --without-libsodium && \
   make -j4 && \
   make install && \
-  cd ..
+  cd .. && \
+  rm -rf libzmq
 
 RUN git clone --recurse-submodules https://github.com/kevinkreiser/prime_server.git && \
   cd prime_server && \
@@ -51,31 +52,32 @@ RUN git clone --recurse-submodules https://github.com/kevinkreiser/prime_server.
   ./configure && \
   make -j4 && \
   make install && \
-  cd ..
+  cd .. && \
+  rm -rf prime_server
 
 ADD midgard midgard
-RUN cd midgard && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
+RUN cd midgard && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd .. && rm -rf midgard
 
 ADD baldr baldr
-RUN cd baldr && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
+RUN cd baldr && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd .. && rm -rf baldr
 
 ADD sif sif
-RUN cd sif && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
+RUN cd sif && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd .. && rm -rf sif
 
 ADD skadi skadi
-RUN cd skadi && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
+RUN cd skadi && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd .. && rm -rf skadi
 
 ADD mjolnir mjolnir
-RUN cd mjolnir && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
+RUN cd mjolnir && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd .. && rm -rf mjolnir
 
 ADD loki loki
-RUN cd loki && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
+RUN cd loki && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd .. && rm -rf loki
 
 ADD odin odin
-RUN cd odin && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
+RUN cd odin && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd .. && rm -rf odin
 
 ADD thor thor
-RUN cd thor && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
+RUN cd thor && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd .. && rm -rf thor
 
 ADD tyr tyr
 RUN cd tyr && ./autogen.sh && ./configure CPPFLAGS=-DBOOST_SPIRIT_THREADSAFE && make -j4 && make install && cd ..
