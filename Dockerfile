@@ -1,20 +1,18 @@
-FROM phusion/baseimage:0.9.17
+FROM ubuntu:15.10
 
-RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
-  apt-get update && \
+RUN apt-get update && \
   apt-get install -y \
     autoconf \
     automake \
     libtool \
     make \
-    gcc-4.9 \
-    g++-4.9 \
-    libboost1.54-dev \
-    libboost-program-options1.54-dev \
-    libboost-filesystem1.54-dev \
-    libboost-system1.54-dev \
-    libboost-thread1.54-dev \
-    libboost-date-time1.54-dev \
+    g++ \
+    libboost1.58-dev \
+    libboost-program-options1.58-dev \
+    libboost-filesystem1.58-dev \
+    libboost-system1.58-dev \
+    libboost-thread1.58-dev \
+    libboost-date-time1.58-dev \
     protobuf-compiler \
     libprotobuf-dev \
     lua5.2 \
@@ -25,10 +23,9 @@ RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
     libgeos-dev \
     libgeos++-dev \
     libcurl4-openssl-dev \
+    vim-common \
     wget \
     unzip && \
-  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 90 && \
-  update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 90 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
